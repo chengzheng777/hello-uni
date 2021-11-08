@@ -1,0 +1,18 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
+		//pages数组中第一项表示应用启动页
+		{
+			"path": "pages/index/index"
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "default", // 导航栏{'default':默认, 'custom':自定义}
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "hello-uni",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

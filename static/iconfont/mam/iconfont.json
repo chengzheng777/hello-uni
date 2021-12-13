@@ -1,0 +1,100 @@
+{
+  "id": "2983037",
+  "name": "mam",
+  "font_family": "mam",
+  "css_prefix_text": "mam-",
+  "description": "ma通用字体图标集（多色）",
+  "glyphs": [
+    {
+      "icon_id": "24087345",
+      "name": "format",
+      "font_class": "format",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "24088924",
+      "name": "pdf",
+      "font_class": "pdf",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "24089188",
+      "name": "doc",
+      "font_class": "doc",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "24089258",
+      "name": "xls",
+      "font_class": "xls",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "24089323",
+      "name": "ppt",
+      "font_class": "ppt",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "24089336",
+      "name": "jpg",
+      "font_class": "jpg",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "24089350",
+      "name": "png",
+      "font_class": "png",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "24089430",
+      "name": "gif",
+      "font_class": "gif",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "24089889",
+      "name": "txt",
+      "font_class": "txt",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "24089900",
+      "name": "zip",
+      "font_class": "zip",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "25129755",
+      "name": "satisfaction-very",
+      "font_class": "satisfaction-very",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "25129816",
+      "name": "satisfaction-normal",
+      "font_class": "satisfaction-normal",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "25129865",
+      "name": "satisfaction-dis",
+      "font_class": "satisfaction-dis",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    }
+  ]
+}

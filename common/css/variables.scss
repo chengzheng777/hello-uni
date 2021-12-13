@@ -1,0 +1,34 @@
+/*
+ * @Description: 全局sass样式变量 预处理配置
+ * @Author: LXG
+ * @Date: 2021-08-10
+ * @Editors: LXG
+ * @LastEditTime: 2021-12-13
+ */
+
+// 主题色 --------------------
+$col-theme: #03b1ff;
+
+$col-blue: #03b1ff;
+$col-gay: #91a0ff;
+$col-green: #13ce66;
+$col-orange: #ff6a00;
+$col-red: #e83232;
+$col-yellow: #ffba00;
+
+$col-separator: #e9e9e9; // 分隔线
+// end --------------------
+
+// TODO
+
+:export {
+    color: {
+        theme: $col-theme;
+        blue: $col-blue;
+        gay: $col-gay;
+        green: $col-green;
+        orange: $col-orange;
+        red: $col-red;
+        yellow: $col-yellow;
+    }
+}

@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "mas"; /* Project id 2983026 */
+  src: url('~@/static/iconfont/mas/iconfont.eot?t=1638433661510'); /* IE9 */
+  src: url('~@/static/iconfont/mas/iconfont.eot?t=1638433661510#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('~@/static/iconfont/mas/iconfont.woff2?t=1638433661510') format('woff2'),
+       url('~@/static/iconfont/mas/iconfont.woff?t=1638433661510') format('woff'),
+       url('~@/static/iconfont/mas/iconfont.ttf?t=1638433661510') format('truetype'),
+       url('~@/static/iconfont/mas/iconfont.svg?t=1638433661510#mas') format('svg');
+}
+
+.mas {
+  font-family: "mas" !important;
+  font-size: 1em;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mas-time-f:before {
+  content: "\e65e";
+}
+
+.mas-mail-m:before {
+  content: "\e61a";
+}
+
+.mas-star-m:before {
+  content: "\e61b";
+}
+
+.mas-star:before {
+  content: "\e61c";
+}
+

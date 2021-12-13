@@ -1,0 +1,37 @@
+/*
+ * @Description: 全局颗粒样式类 管理
+ * @Author: LXG
+ * @Date: 2021-08-16
+ * @Editors: LXG
+ * @LastEditTime: 2021-12-13
+ */
+
+@for $i from 1 to 10 {
+    .pad-#{$i} {
+        padding: 14rpx * $i;
+    }
+    .pad-tb-#{$i} {
+        padding-top: 14rpx * $i;
+        padding-bottom: 14rpx * $i;
+    }
+    .pad-rl-#{$i} {
+        padding-right: 14rpx * $i;
+        padding-left: 14rpx * $i;
+    }
+    .bord-r-#{$i} {
+        border-radius: 8rpx * $i;
+    }
+    .marg-#{$i} {
+        margin: 14rpx * $i;
+    }
+    .marg-tb-#{$i} {
+        margin-top: 14rpx * $i;
+        margin-bottom: 14rpx * $i;
+    }
+    .marg-rl-#{$i} {
+        margin-right: 14rpx * $i;
+        margin-left: 14rpx * $i;
+    }
+}
+
+// TODO

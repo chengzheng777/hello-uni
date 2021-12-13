@@ -1,0 +1,69 @@
+@font-face {
+  font-family: "mam"; /* Project id 2983037 */
+  /* Color fonts */
+  src: 
+       url('~@/static/iconfont/mam/iconfont.woff2?t=1638433239631') format('woff2'),
+       url('~@/static/iconfont/mam/iconfont.woff?t=1638433239631') format('woff'),
+       url('~@/static/iconfont/mam/iconfont.ttf?t=1638433239631') format('truetype');
+}
+
+.mam {
+  font-family: "mam" !important;
+  font-size: 1em;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mam-format:before {
+  content: "\e60c";
+}
+
+.mam-pdf:before {
+  content: "\e60d";
+}
+
+.mam-doc:before {
+  content: "\e60e";
+}
+
+.mam-xls:before {
+  content: "\e60f";
+}
+
+.mam-ppt:before {
+  content: "\e610";
+}
+
+.mam-jpg:before {
+  content: "\e611";
+}
+
+.mam-png:before {
+  content: "\e612";
+}
+
+.mam-gif:before {
+  content: "\e613";
+}
+
+.mam-txt:before {
+  content: "\e614";
+}
+
+.mam-zip:before {
+  content: "\e615";
+}
+
+.mam-satisfaction-very:before {
+  content: "\e616";
+}
+
+.mam-satisfaction-normal:before {
+  content: "\e617";
+}
+
+.mam-satisfaction-dis:before {
+  content: "\e618";
+}
+

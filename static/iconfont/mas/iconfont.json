@@ -1,0 +1,37 @@
+{
+  "id": "2983026",
+  "name": "mas",
+  "font_family": "mas",
+  "css_prefix_text": "mas-",
+  "description": "ma通用字体图标集（单色）",
+  "glyphs": [
+    {
+      "icon_id": "29949",
+      "name": "time_fill",
+      "font_class": "time-f",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "1725625",
+      "name": "邮件打开",
+      "font_class": "mail-m",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "25518304",
+      "name": "star-m",
+      "font_class": "star-m",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "25518314",
+      "name": "star",
+      "font_class": "star",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    }
+  ]
+}

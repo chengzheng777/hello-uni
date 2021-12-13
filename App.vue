@@ -12,10 +12,6 @@
 	}
 </script>
 
-<style lang="scss">
-	@import "uview-ui/index.scss";
-
-	page {
-		background-color: #F8F8F8;
-	}
+<style>
+	/*每个页面公共css */
 </style>

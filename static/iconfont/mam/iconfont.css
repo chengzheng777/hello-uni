@@ -8,6 +8,7 @@
 }
 
 .mam {
+  display: inline;
   font-family: "mam" !important;
   font-size: 1em;
   font-style: normal;

@@ -7,7 +7,6 @@
 -->
 <template>
 	<view>
-		<button type="default" @tap="sendHttp">请求</button>
 	</view>
 </template>
 
@@ -23,17 +22,7 @@
 			};
 		},
 		computed: {},
-		methods: {
-			sendHttp() {
-				this.$http.post('/dev-api/cfgpermitconfig/query/data/find/cfg_permitinfo_andzchx_list', {
-					data: {},
-				}).then(res => {
-					console.log('请求成功:', res)
-				}).catch(err => {
-					console.error('请求失败:', err)
-				})
-			},
-		},
+		methods: {},
 		watch: {},
 		onLoad(options) {},
 		onReady() {},

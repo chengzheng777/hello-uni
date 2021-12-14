@@ -9,6 +9,7 @@
 }
 
 .mas {
+  display: inline;
   font-family: "mas" !important;
   font-size: 1em;
   font-style: normal;

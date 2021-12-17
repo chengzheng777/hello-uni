@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App'
 
 import env from './env/index.module.js'
-import MaRouter from './router/index.js'
+import maRouter from './router/index.js'
 import http from './http/index.js'
 
 Vue.prototype.$env = env
-Vue.prototype.$maRouter = MaRouter
+Vue.prototype.$maRouter = maRouter
 Vue.prototype.$http = http
 
 Vue.config.productionTip = false

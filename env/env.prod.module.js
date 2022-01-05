@@ -11,5 +11,5 @@ module.exports = {
 	ENVIRONMENT: 'prod',
 
 	// HTTP请求的地址(基础路径)
-	API_BASE_URL: 'https://qqzq.baoan.gov.cn/balocal-api',
+	API_BASE_URL: './balocal-api',
 }

@@ -9,7 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "uview-ui": "^1.8.4"
-  }
+  "dependencies": {}
 }

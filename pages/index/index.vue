@@ -8,7 +8,7 @@
 <template>
 	<view>
 		<view>index</view>
-		<button type="default" @tap="httpPost">测试get请求</button>
+		<button type="default" @tap="httpGet">测试get请求</button>
 		<button type="default" @tap="pushStr">pushStr</button>
 		<button type="default" @tap="pushObj">pushObj</button>
 	</view>
@@ -27,7 +27,7 @@
 		},
 		computed: {},
 		methods: {
-			httpPost() {
+			httpGet() {
 				this.$maHttper.get('/dev-api/system/dict/getDictListByType', {
 					dictType: 'sq_policy_zjlx',
 				}).then(res => {

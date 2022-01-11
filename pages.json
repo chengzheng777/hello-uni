@@ -1,6 +1,5 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/index/index",
 			"style": {}
 		},
@@ -11,10 +10,31 @@
 		{
 			"path": "pages/test/test",
 			"style": {}
+		},
+		{
+			"path": "pages/tabbar/home/index",
+			"style": {}
+		},
+		{
+			"path": "pages/tabbar/mine/index",
+			"style": {}
 		}
 	],
+	"tabBar": {
+		"selectedColor": "#3699ff",
+		"fontSize": "28rpx",
+		"list": [{
+				"pagePath": "pages/tabbar/home/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/tabbar/mine/index",
+				"text": "我的"
+			}
+		]
+	},
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "black", // 导航栏标题颜色及状态栏前景颜色[black | white]
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"

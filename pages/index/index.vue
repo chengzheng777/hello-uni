@@ -8,9 +8,7 @@
 <template>
 	<view>
 		<view>index</view>
-		<button type="default" @tap="httpGet">测试get请求</button>
-		<button type="default" @tap="pushStr">pushStr</button>
-		<button type="default" @tap="pushObj">pushObj</button>
+		<button type="default" @tap="goHome">进入首页</button>
 	</view>
 </template>
 
@@ -27,23 +25,9 @@
 		},
 		computed: {},
 		methods: {
-			httpGet() {
-				this.$maHttper.get('/dev-api/system/dict/getDictListByType', {
-					dictType: 'sq_policy_zjlx',
-				}).then(res => {
-					console.log(res)
-				})
-			},
-			pushStr() {
-				this.$maRouter.push('/pages/test/test?a=1&b=&c')
-			},
-			pushObj() {
-				this.$maRouter.push({
-					name: 'test',
-					path: '/pages/test/test?a=1&param=1',
-					query: {
-						param: 2,
-					},
+			goHome() {
+				uni.switchTab({
+					url: '/pages/tabbar/home/index',
 				})
 			},
 		},

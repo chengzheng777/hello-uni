@@ -34,4 +34,19 @@
     }
 }
 
+$colors: (
+    "theme": $col-theme,
+    "blue": $col-blue,
+    "gay": $col-gay,
+    "green": $col-green,
+    "orange": $col-orange,
+    "red": $col-red,
+    "yellow": $col-yellow,
+);
+@each $key, $color in $colors {
+    .col-#{$key} {
+        color: $color;
+    }
+}
+
 // TODO

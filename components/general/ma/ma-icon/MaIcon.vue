@@ -66,39 +66,5 @@
 </script>
 
 <style lang="scss" scoped>
-	$colorTheme: $col-theme;
-	$colorBlue: $col-blue;
-	$colorGreen: $col-green;
-	$colorRed: $col-red;
-	$colorYellow: $col-yellow;
-
-	.ma-icon {
-		&.icon--black {
-			color: #000000;
-		}
-
-		&.icon--white {
-			color: #ffffff;
-		}
-
-		&.icon--theme {
-			color: $colorTheme;
-		}
-
-		&.icon--blue {
-			color: $colorBlue;
-		}
-
-		&.icon--green {
-			color: $colorGreen;
-		}
-
-		&.icon--red {
-			color: $colorRed;
-		}
-
-		&.icon--yellow {
-			color: $colorYellow;
-		}
-	}
+	@import "./ma-icon.scss";
 </style>

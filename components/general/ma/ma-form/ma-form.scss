@@ -1,1 +1,27 @@
+$form-color-separator: #e9e9e9;
+
 .ma-form {}
+
+.ma-form.form--hs {
+    .ma-form-item + .ma-form-item {
+        border-top: 1px solid $form-color-separator;
+    }
+
+    /* #ifdef MP-WEIXIN */
+    $formItems: (
+		'ma-form-item'
+	);
+	
+    @each $item in $formItems {
+    	@each $item2 in $formItems {
+    		#{$item} + #{$item2} {
+    			&::before {
+    				content: "";
+    				display: block;
+    				border-top: 1px solid $form-color-separator;
+    			}
+    		}
+    	}
+    }
+    /* #endif */
+}

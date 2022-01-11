@@ -8,16 +8,20 @@
 <template>
 	<view>
 		<view>mine</view>
-		<MaForm></MaForm>
+		<MaForm>
+			<MaFormItem label="测试新的表单项" value="MaFormItem"></MaFormItem>
+		</MaForm>
 	</view>
 </template>
 
 <script>
 	import MaForm from '@/components/general/ma/ma-form/MaForm'
+	import MaFormItem from '@/components/general/ma/ma-form/MaFormItem'
 
 	export default {
 		components: {
 			MaForm,
+			MaFormItem,
 		},
 		filters: {},
 		props: {},

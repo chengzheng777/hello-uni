@@ -1,5 +1,5 @@
 <!--
- * @Description: ma-ui组件 - 字体图标
+ * @Description: ma-ui - 字体图标
  * @Author: LXG
  * @Date: 2021-12-14
  * @Editors: LXG

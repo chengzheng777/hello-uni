@@ -22,7 +22,7 @@
 	],
 	"tabBar": {
 		"selectedColor": "#3699ff",
-		"fontSize": "28rpx",
+		"fontSize": "28rpx", // 仅H5、App
 		"list": [{
 				"pagePath": "pages/tabbar/home/index",
 				"text": "首页"
@@ -34,7 +34,7 @@
 		]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "black", // 导航栏标题颜色及状态栏前景颜色[black | white]
+		"navigationBarTextStyle": "black", // 导航栏标题颜色及状态栏前景颜色[black|white]
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"

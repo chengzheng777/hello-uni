@@ -1,9 +1,17 @@
+$form-gap: 14rpx;
+$form-borderRadius: 8rpx;
+$form-fontSize: 28rpx;
 $form-color-separator: #e9e9e9;
+$form-color-clickable: rgba(250, 250, 250, 0.5);
+$form-color-label: #000000;
+$form-color-value: #000000;
+$form-color-value-readonly: #666666;
+$form-color-fail: $col-red;
 
 .ma-form {}
 
 .ma-form.form--hs {
-    .ma-form-item + .ma-form-item {
+    ::v-deep .ma-form-item + .ma-form-item {
         border-top: 1px solid $form-color-separator;
     }
 
@@ -14,7 +22,7 @@ $form-color-separator: #e9e9e9;
 	
     @each $item in $formItems {
     	@each $item2 in $formItems {
-    		#{$item} + #{$item2} {
+    		::v-deep #{$item} + #{$item2} {
     			&::before {
     				content: "";
     				display: block;

@@ -7,10 +7,35 @@
 -->
 <template>
 	<view>
-		<view>mine</view>
-		<MaForm>
-			<MaFormItem label="测试新的表单项" value="MaFormItem"></MaFormItem>
+		<MaForm ref="maForm" separator>
+			<ma-form-item
+				label="MaFormItem"
+				value="MaFormItem">
+			</ma-form-item>
+			<MaFormItem
+				clickable
+				direction="vertical"
+				label="MaFormItem"
+				value="点击反馈, 垂直布局, 必填, 只读, "
+				readonly
+				required>
+			</MaFormItem>
+			<MaFormItem
+				label="MaFormItem"
+				labelWidth="100rpx"
+				readonly
+				showTips>
+				<template v-slot:value>
+					<text>自定义label宽度, 自定义value, 只读, </text>
+				</template>
+				<template v-slot:tips>
+					<text style="color: #999999;">
+						(请填写13位手机号码)
+					</text>
+				</template>
+			</MaFormItem>
 		</MaForm>
+		<button type="default" @tap="handleValidate">表单校验</button>
 	</view>
 </template>
 
@@ -31,7 +56,15 @@
 			};
 		},
 		computed: {},
-		methods: {},
+		methods: {
+			handleValidate() {
+				this.$refs['maForm'].validate().then(res => {
+					console.warn(res)
+				}).catch(err => {
+					console.warn(err)
+				})
+			},
+		},
 		watch: {},
 		onLoad(options) {},
 		onReady() {},

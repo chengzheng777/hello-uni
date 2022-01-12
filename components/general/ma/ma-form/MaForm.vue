@@ -35,11 +35,10 @@
 			},
 			labelWidth: {
 				type: String,
-				default: 'auto'
 			},
 			separator: {
 				type: Boolean,
-				default: true
+				default: false
 			},
 		},
 		data() {
@@ -51,12 +50,34 @@
 		methods: {
 			/**
 			 * @description 获取内部的表单项组件实例
+			 * @param {VueComponent[]} childrenList 子组件实例列表
+			 * @returns {VueComponent[]}
 			 */
-			getChildrens() {
-				// #ifdef MP-WEIXIN
-				return this.$children[0];
-				// #endif
-				return this.$children[0].$children;
+			getChildrens(target = [], childrenList = []) {
+				for (let i = 0; i < childrenList.length; i++) {
+					const vc = childrenList[i]
+					if (vc.$el && vc.$el.classList.contains('ma-form-item')) {
+						target.push(vc)
+						continue;
+					}
+					if (vc.$options.name === 'MaFormItem') {
+						target.push(vc)
+						continue;
+					}
+					if (vc.$children.length) {
+						this.getChildrens(target, vc.$children);
+					}
+				}
+				return target;
+			},
+			/**
+			 * @description 校验
+			 */
+			validate() {
+				return new Promise((resolve, reject) => {
+					let childrens = this.getChildrens([], this.$children)
+					console.log(childrens)
+				})
 			},
 		},
 		provide() {

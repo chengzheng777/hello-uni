@@ -66,5 +66,4 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./ma-icon.scss";
 </style>

@@ -10,30 +10,14 @@
 		<MaForm ref="maForm" separator>
 			<ma-form-item
 				label="MaFormItem"
-				value="MaFormItem">
+				value="MaFormItem"
+				readonly>
 			</ma-form-item>
-			<MaFormItem
-				clickable
-				direction="vertical"
-				label="MaFormItem"
-				value="点击反馈, 垂直布局, 必填, 只读, "
-				readonly
+			<MaFormInput
+				label="MaFormInput"
+				v-model="inputData"
 				required>
-			</MaFormItem>
-			<MaFormItem
-				label="MaFormItem"
-				labelWidth="100rpx"
-				readonly
-				showTips>
-				<template v-slot:value>
-					<text>自定义label宽度, 自定义value, 只读, </text>
-				</template>
-				<template v-slot:tips>
-					<text style="color: #999999;">
-						(请填写13位手机号码)
-					</text>
-				</template>
-			</MaFormItem>
+			</MaFormInput>
 		</MaForm>
 		<button type="default" @tap="handleValidate">表单校验</button>
 	</view>
@@ -42,17 +26,19 @@
 <script>
 	import MaForm from '@/components/general/ma/ma-form/MaForm'
 	import MaFormItem from '@/components/general/ma/ma-form/MaFormItem'
+	import MaFormInput from '@/components/general/ma/ma-form-input/MaFormInput'
 
 	export default {
 		components: {
 			MaForm,
 			MaFormItem,
+			MaFormInput,
 		},
 		filters: {},
 		props: {},
 		data() {
 			return {
-
+				inputData: '文本输入框',
 			};
 		},
 		computed: {},

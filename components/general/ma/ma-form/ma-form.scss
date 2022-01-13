@@ -17,7 +17,8 @@ $form-color-fail: $col-red;
 
     /* #ifdef MP-WEIXIN */
     $formItems: (
-		'ma-form-item'
+		'ma-form-item',
+		'ma-form-input'
 	);
 	
     @each $item in $formItems {

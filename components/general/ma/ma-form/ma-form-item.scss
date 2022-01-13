@@ -1,0 +1,81 @@
+@import "./ma-form.scss";
+
+.ma-form-item {
+		padding: $form-gap $form-fontSize;
+		font-size: $form-fontSize;
+	}
+
+	.fi__inner {
+		display: flex;
+		align-items: center;
+	}
+
+	.fi__inner__body {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.fi-label {
+		position: relative;
+		color: $form-color-label;
+		word-break: break-all;
+	}
+
+	.fi-label.fi-label--required::before {
+		content: "*";
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-block;
+		color: $form-color-fail;
+		transform: translate(-100%, 0);
+	}
+
+	.fi-value {
+		color: $form-color-value;
+		word-break: break-all;
+	}
+
+	.fi-value__inner {}
+
+	.fi-value.fi-value--readonly {
+		color: $form-color-value-readonly;
+
+		.fi-value__inner {
+			display: inline-block;
+			text-align: left;
+		}
+	}
+
+	.fi__inner__body.fi__inner__body--horizontal {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		column-gap: $form-fontSize;
+
+		.fi-value.fi-value--readonly {
+			text-align: right;
+		}
+	}
+
+	.fi-extra {
+		flex-shrink: 0;
+		margin-left: $form-gap;
+	}
+
+	.fi-tips {
+		word-break: break-all;
+	}
+
+	.fi-validation {
+		color: $form-color-fail;
+		word-break: break-all;
+	}
+
+	.ma-form-item.form-item--border {
+		border: 1px solid $form-color-separator;
+		border-radius: $form-borderRadius;
+	}
+
+	.ma-form-item.form-item--clickable:active {
+		background-color: $form-color-clickable;
+	}

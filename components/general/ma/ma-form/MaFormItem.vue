@@ -36,11 +36,11 @@
 					:class="{
 						'fi-value--readonly':readonly,
 					}">
-					<view class="fi-value__inner">
-						<slot name="value">
+					<slot>
+						<view class="fi-value__inner">
 							{{value}}
-						</slot>
-					</view>
+						</view>
+					</slot>
 				</view>
 			</view>
 			<view v-if="showExtra" class="fi-extra">
@@ -50,7 +50,11 @@
 		<view v-if="showTips" class="fi-tips">
 			<slot name="tips">{{tips}}</slot>
 		</view>
-		<view class="fi-validation"></view>
+		<view
+			v-if="!validationInfo.status"
+			class="fi-validation">
+			{{validationInfo.msg}}
+		</view>
 		<slot name="append"></slot>
 	</view>
 </template>
@@ -134,14 +138,18 @@
 			},
 			validateMethod: {
 				type: Function,
+				// #ifdef H5
 				default: (val, cb) => {
-					// #ifdef MP-WEIXIN
-					return function() {
+					cb(true)
+				},
+				// #endif
+				// #ifndef H5
+				default: () => {
+					return function(val, cb) {
 						cb(true)
 					}
-					// #endif
-					cb(true)
 				}
+				// #endif
 			},
 		},
 		data() {
@@ -170,26 +178,33 @@
 			 */
 			validate() {
 				return new Promise((resolve, reject) => {
-					this.validateMethod(this.value, (result, msg) => {
-						if (!result) {
-							this.validationInfo.status = false
-							this.validationInfo.msg = msg
-							resolve({
+					this.validateMethod(this.value, (res, msg) => {
+						if (!res) {
+							let obj = {
 								status: false,
-								label: this.label,
 								msg: msg,
+							}
+							this.setValidation(obj)
+							resolve({
+								...obj,
+								label: this.label,
 							});
-							this.resetValidate()
+							return;
 						}
+						this.setValidation()
+						resolve({
+							status: true,
+						});
 					})
 				})
 			},
 			/**
-			 * @description 重置校验
+			 * @description 设置校验信息
+			 * @param {object} info 校验信息
 			 */
-			resetValidate() {
-				this.validationInfo.status = true
-				this.validationInfo.msg = ''
+			setValidation(info = {}) {
+				this.validationInfo.status = info.status ?? true
+				this.validationInfo.msg = info.msg ?? ''
 			},
 		},
 		watch: {},
@@ -197,84 +212,5 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./ma-form.scss";
-
-	.ma-form-item {
-		padding: $form-gap $form-fontSize;
-		font-size: $form-fontSize;
-	}
-
-	.fi__inner {
-		display: flex;
-		align-items: center;
-	}
-
-	.fi__inner__body {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.fi-label {
-		position: relative;
-		color: $form-color-label;
-		word-break: break-all;
-	}
-
-	.fi-label.fi-label--required::before {
-		content: "*";
-		position: absolute;
-		top: 0;
-		left: 0;
-		display: inline-block;
-		color: $form-color-fail;
-		transform: translate(-100%, 0);
-	}
-
-	.fi-value {
-		color: $form-color-value;
-		word-break: break-all;
-	}
-
-	.fi-value__inner {}
-
-	.fi-value.fi-value--readonly {
-		color: $form-color-value-readonly;
-
-		.fi-value__inner {
-			display: inline-block;
-			text-align: left;
-		}
-	}
-
-	.fi__inner__body.fi__inner__body--horizontal {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		column-gap: $form-fontSize;
-
-		.fi-value.fi-value--readonly {
-			text-align: right;
-		}
-	}
-
-	.fi-extra {
-		flex-shrink: 0;
-		margin-left: $form-gap;
-	}
-
-	.fi-tips {
-		word-break: break-all;
-	}
-
-	.fi-validation {
-		word-break: break-all;
-	}
-
-	.ma-form-item.form-item--border {
-		border: 1px solid $form-color-separator;
-		border-radius: $form-borderRadius;
-	}
-
-	.ma-form-item.form-item--clickable:active {
-		background-color: $form-color-clickable;
-	}
+	@import "./ma-form-item.scss";
 </style>

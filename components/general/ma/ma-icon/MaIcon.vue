@@ -11,24 +11,21 @@
 		:class="[
 			cpu_familyName,
 			name,
-			cpu_colorClass,
 		]">
 	</i>
 </template>
 
 <script>
+	/**
+	 * @property {String} name 类名(族名-图标名)
+	 */
+
 	export default {
 		name: 'MaIcon',
 		components: {},
 		filters: {},
 		props: {
-			// 族名-图标名(mas-star)
 			name: {
-				type: String,
-				default: ''
-			},
-			// 默认配色
-			color: {
 				type: String,
 				default: ''
 			},
@@ -48,16 +45,6 @@
 			}) {
 				if (!name) return '';
 				return name.split('-')[0];
-			},
-			/**
-			 * @description 默认配色样式类
-			 * @returns {string}
-			 */
-			cpu_colorClass({
-				color
-			}) {
-				if (!color) return '';
-				return 'icon--' + color;
 			},
 		},
 		methods: {},

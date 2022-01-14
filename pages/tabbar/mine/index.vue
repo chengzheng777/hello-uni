@@ -8,18 +8,24 @@
 <template>
 	<view>
 		<MaForm ref="maForm" separator>
-			<ma-form-item
+			<MaFormItem
 				label="MaFormItem"
 				value="MaFormItem"
 				readonly>
-			</ma-form-item>
+			</MaFormItem>
 			<MaFormInput
 				label="MaFormInput"
 				v-model="inputData"
 				required>
 			</MaFormInput>
 		</MaForm>
+		<MaPopup
+			v-model="popupShow"
+			direction="top">
+			<view>abcdefg</view>
+		</MaPopup>
 		<button type="default" @tap="handleValidate">表单校验</button>
+		<button type="default" @tap="handlePopup">弹窗切换</button>
 	</view>
 </template>
 
@@ -27,18 +33,21 @@
 	import MaForm from '@/components/general/ma/ma-form/MaForm'
 	import MaFormItem from '@/components/general/ma/ma-form/MaFormItem'
 	import MaFormInput from '@/components/general/ma/ma-form-input/MaFormInput'
+	import MaPopup from '@/components/general/ma/ma-popup/MaPopup'
 
 	export default {
 		components: {
 			MaForm,
 			MaFormItem,
 			MaFormInput,
+			MaPopup,
 		},
 		filters: {},
 		props: {},
 		data() {
 			return {
 				inputData: '文本输入框',
+				popupShow: false,
 			};
 		},
 		computed: {},
@@ -49,6 +58,9 @@
 				}).catch(err => {
 					console.warn(err)
 				})
+			},
+			handlePopup() {
+				this.popupShow = !this.popupShow
 			},
 		},
 		watch: {},

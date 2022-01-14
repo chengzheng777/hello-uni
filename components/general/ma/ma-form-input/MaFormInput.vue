@@ -72,12 +72,18 @@
 	 * @property {Boolean} showExtra 是否显示右侧extra
 	 * @property {Boolean} showTips 显示底部小贴士
 	 * @property {String} tips 底部小贴士
-	 * @property {Function} validateMethod 自定义校验函数
+	 * @property {function} validateMethod 自定义校验函数
 	 * 
 	 * @property {String} type input的类型
 	 * @property {String} placeholder input的占位文本
 	 * @property {Boolean} disabled 是否禁用
 	 * @property {Number} maxlength 最大输入长度
+	 * @event {Function} input 值输入时(val) -
+	 *     val:值,
+	 * @event {Function} blur input失焦时(e) -
+	 *     e:Event,
+	 * @event {Function} confirm input回车确定时(e) -
+	 *     e:Event,
 	 */
 
 	export default {

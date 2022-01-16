@@ -1,3 +1,4 @@
+$popup-borderRaduis: 16rpx;
 $popup-color-mask: rgba(0, 0, 0, 0.5);
 $popup-color-body: #ffffff;
 
@@ -40,13 +41,14 @@ $popup-color-body: #ffffff;
 	max-width: 100%;
 	max-height: 100%;
 	background-color: $popup-color-body;
-	opacity: 0;
 	z-index: 1000;
 }
 
 .p__body.p__body--center {
 	top: 50%;
 	left: 50%;
+	border-radius: $popup-borderRaduis;
+	opacity: 0;
 	transform: translate(-50%,-50%);
 }
 
@@ -54,24 +56,36 @@ $popup-color-body: #ffffff;
 	top: 0;
 	right: 0;
 	left: 0;
+	border-bottom-right-radius: $popup-borderRaduis;
+	border-bottom-left-radius: $popup-borderRaduis;
+	transform: translateY(-100%);
 }
 
 .p__body.p__body--right {
 	top: 0;
 	right: 0;
 	bottom: 0;
+	border-bottom-left-radius: $popup-borderRaduis;
+	border-top-left-radius: $popup-borderRaduis;
+	transform: translateX(100%);
 }
 
 .p__body.p__body--bottom {
 	right: 0;
 	bottom: 0;
 	left: 0;
+	border-top-right-radius: $popup-borderRaduis;
+	border-top-left-radius: $popup-borderRaduis;
+	transform: translateY(100%);
 }
 
 .p__body.p__body--left {
 	top: 0;
 	bottom: 0;
 	left: 0;
+	border-top-right-radius: $popup-borderRaduis;
+	border-bottom-right-radius: $popup-borderRaduis;
+	transform: translateX(-100%);
 }
 
 .p__body.p__body--center.p__body--enter {
@@ -94,15 +108,24 @@ $popup-color-body: #ffffff;
 }
 
 .p__body.p__body--top.p__body--enter,
-.p__body.p__body--top.p__body--active,
 .p__body.p__body--right.p__body--enter,
-.p__body.p__body--right.p__body--active,
 .p__body.p__body--bottom.p__body--enter,
-.p__body.p__body--bottom.p__body--active,
-.p__body.p__body--left.p__body--enter,
-.p__body.p__body--left.p__body--active {
+.p__body.p__body--left.p__body--enter {
 	display: block;
-	opacity: 1;
+}
+
+.p__body.p__body--top.p__body--to-enter,
+.p__body.p__body--right.p__body--to-enter,
+.p__body.p__body--bottom.p__body--to-enter,
+.p__body.p__body--left.p__body--to-enter {
+	transition: transform 0.4s ease-in 0s;
+}
+
+.p__body.p__body--top.p__body--to-leave,
+.p__body.p__body--right.p__body--to-leave,
+.p__body.p__body--bottom.p__body--to-leave,
+.p__body.p__body--left.p__body--to-leave {
+	transition: transform 0.4s ease-out 0s;
 }
 
 .p__body.p__body--top.p__body--enter {
@@ -111,12 +134,15 @@ $popup-color-body: #ffffff;
 
 .p__body.p__body--top.p__body--to-enter {
 	transform: translateY(0);
-	transition: transform 0.4s ease-in 0s;
+}
+
+.p__body.p__body--top.p__body--active {
+	display: block;
+	transform: translateY(0);
 }
 
 .p__body.p__body--top.p__body--to-leave {
 	transform: translateY(-100%);
-	transition: transform 0.4s ease-out 0s;
 }
 
 .p__body.p__body--right.p__body--enter {
@@ -125,12 +151,15 @@ $popup-color-body: #ffffff;
 
 .p__body.p__body--right.p__body--to-enter {
 	transform: translateX(0);
-	transition: transform 0.4s ease-in 0s;
+}
+
+.p__body.p__body--right.p__body--active {
+	display: block;
+	transform: translateX(0);
 }
 
 .p__body.p__body--right.p__body--to-leave {
 	transform: translateX(100%);
-	transition: transform 0.4s ease-out 0s;
 }
 
 .p__body.p__body--bottom.p__body--enter {
@@ -139,12 +168,15 @@ $popup-color-body: #ffffff;
 
 .p__body.p__body--bottom.p__body--to-enter {
 	transform: translateY(0);
-	transition: transform 0.4s ease-in 0s;
+}
+
+.p__body.p__body--bottom.p__body--active {
+	display: block;
+	transform: translateY(0);
 }
 
 .p__body.p__body--bottom.p__body--to-leave {
 	transform: translateY(100%);
-	transition: transform 0.4s ease-out 0s;
 }
 
 .p__body.p__body--left.p__body--enter {
@@ -153,10 +185,13 @@ $popup-color-body: #ffffff;
 
 .p__body.p__body--left.p__body--to-enter {
 	transform: translateX(0);
-	transition: transform 0.4s ease-in 0s;
+}
+
+.p__body.p__body--left.p__body--active {
+	display: block;
+	transform: translateX(0);
 }
 
 .p__body.p__body--left.p__body--to-leave {
 	transform: translateX(-100%);
-	transition: transform 0.4s ease-out 0s;
 }

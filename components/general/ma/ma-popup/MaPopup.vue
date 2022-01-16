@@ -35,7 +35,6 @@
 
 <script>
 	/**
-	 * @property {Boolean} value 弹窗显示状态
 	 * @property {Boolean} lazy 是否延迟初始化
 	 * @property {Boolean} keepAlive 是否初始化后保持活跃
 	 * @property {Number|String} duration 动画时长(秒)
@@ -60,9 +59,6 @@
 		components: {},
 		filters: {},
 		props: {
-			value: {
-				type: Boolean,
-			},
 			lazy: {
 				type: Boolean,
 				default: true
@@ -97,7 +93,6 @@
 			return {
 				inited: false,
 				in_value: false,
-				openTimestamp: 0,
 				transitionInfo: {
 					/**
 					 * 当前的状态
@@ -124,15 +119,6 @@
 			};
 		},
 		computed: {
-			cpu_value: {
-				get() {
-					return this.value ?? this.in_value;
-				},
-				set(val) {
-					this.in_value = val
-					this.$emit('input', val)
-				}
-			},
 			cpu_inited({
 				inited,
 				keepAlive,
@@ -145,7 +131,7 @@
 			cpu_duration({
 				duration
 			}) {
-				if (!duration) return;
+				if (!duration) return '';
 				return duration + 's';
 			},
 			cpu_bodyClass({
@@ -179,14 +165,14 @@
 		methods: {
 			/**
 			 * @description 切换弹出关闭
-			 * @param {Boolean} isOpen 是否弹出
+			 * @param {Boolean} isOpen 是否打开
 			 */
-			toggle(isOpen = false) {
-				this.cpu_value = isOpen
+			toggle(isOpen = !this.in_value) {
+				this.in_value = isOpen
+				isOpen && (this.inited = true);
 
 				const delay = Number(this.duration || 0.4) * 1000
 				if (isOpen) {
-					this.openTimestamp = new Date().getTime()
 					this.transitionInfo.activeStatus = 'enter'
 					setTimeout(() => {
 						this.transitionInfo.ingStatus = 'enter'
@@ -194,33 +180,24 @@
 							this.transitionInfo.ingStatus = ''
 							this.transitionInfo.activeStatus = 'active'
 						}, delay)
-					}, 0)
+					}, 10)
 					this.$emit('open')
 				} else {
-					let closeDuration = new Date().getTime() - this.openTimestamp
 					this.transitionInfo.ingStatus = 'leave'
 					this.transitionInfo.timer(() => {
 						this.transitionInfo.ingStatus = ''
 						this.transitionInfo.activeStatus = ''
-					}, Math.min(delay, closeDuration))
+					}, delay)
 					this.$emit('close')
 				}
 			},
 			tapMask(e) {
-				this.closeOnTapMask && (this.cpu_value = false);
+				this.closeOnTapMask && !this.transitionInfo.ingStatus && this.toggle(false);
 			},
 		},
-		watch: {
-			cpu_value: {
-				immediate: true,
-				handler: function(newVal) {
-					newVal && (this.inited = true);
-					this.toggle(newVal)
-				}
-			},
-		},
+		watch: {},
 		created() {
-			this.cpu_value || this.lazy || (this.inited = true);
+			this.lazy || (this.inited = true);
 		},
 	}
 </script>

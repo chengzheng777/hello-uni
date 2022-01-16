@@ -20,8 +20,8 @@
 			</MaFormInput>
 		</MaForm>
 		<MaPopup
-			v-model="popupShow"
-			direction="top">
+			ref="maPopup"
+			direction="bottom">
 			<view>abcdefg</view>
 		</MaPopup>
 		<button type="default" @tap="handleValidate">表单校验</button>
@@ -47,7 +47,6 @@
 		data() {
 			return {
 				inputData: '文本输入框',
-				popupShow: false,
 			};
 		},
 		computed: {},
@@ -60,7 +59,7 @@
 				})
 			},
 			handlePopup() {
-				this.popupShow = !this.popupShow
+				this.$refs['maPopup'].toggle()
 			},
 		},
 		watch: {},

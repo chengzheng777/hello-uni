@@ -19,7 +19,7 @@
 			:style="{
 				'transition-duration':cpu_duration,
 			}"
-			@tap="tapMask">
+			@tap.stop="tapMask">
 		</view>
 		<view
 			class="p__body"
@@ -171,7 +171,7 @@
 				this.in_value = isOpen
 				isOpen && (this.inited = true);
 
-				const delay = Number(this.duration || 0.4) * 1000
+				const delay = Number(this.duration || 0.2) * 1000
 				if (isOpen) {
 					this.transitionInfo.activeStatus = 'enter'
 					setTimeout(() => {

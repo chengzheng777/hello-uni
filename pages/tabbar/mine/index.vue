@@ -19,13 +19,17 @@
 				required>
 			</MaFormInput>
 		</MaForm>
+		<button type="default" @tap="handleValidate">表单校验</button>
 		<MaPopup
 			ref="maPopup"
 			direction="bottom">
 			<view>abcdefg</view>
 		</MaPopup>
-		<button type="default" @tap="handleValidate">表单校验</button>
 		<button type="default" @tap="handlePopup">弹窗切换</button>
+		<MaTable
+			:columns="tableData.columns"
+			:rows="tableData.rows">
+		</MaTable>
 	</view>
 </template>
 
@@ -34,6 +38,7 @@
 	import MaFormItem from '@/components/general/ma/ma-form/MaFormItem'
 	import MaFormInput from '@/components/general/ma/ma-form-input/MaFormInput'
 	import MaPopup from '@/components/general/ma/ma-popup/MaPopup'
+	import MaTable from '@/components/general/ma/ma-table/MaTable'
 
 	export default {
 		components: {
@@ -41,12 +46,49 @@
 			MaFormItem,
 			MaFormInput,
 			MaPopup,
+			MaTable,
 		},
 		filters: {},
 		props: {},
 		data() {
 			return {
-				inputData: '文本输入框',
+				inputData: '',
+				tableData: {
+					columns: [{
+							prop: 'index',
+							label: '序号',
+						},
+						{
+							prop: 'name',
+							label: '姓名',
+						},
+						{
+							prop: 'sex',
+							label: '性别',
+						},
+					],
+					rows: [{
+							index: '1',
+							name: '林晓刚',
+							sex: '男',
+						},
+						{
+							index: '2',
+							name: '程政',
+							sex: '女',
+						},
+						{
+							index: '3',
+							name: '王光涛',
+							sex: '女',
+						},
+						{
+							index: '4',
+							name: '万兴兴',
+							sex: '男',
+						},
+					],
+				},
 			};
 		},
 		computed: {},

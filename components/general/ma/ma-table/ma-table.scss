@@ -1,0 +1,32 @@
+.ma-table {}
+
+// #ifdef MP-WEIXIN
+._table {
+	display: table;
+}
+._colgroup {
+	display: table-column-group;
+}
+._col {
+	display: table-column;
+}
+._thead {
+	display: table-header-group;
+}
+._tbody {
+	display: table-row-group;
+}
+._tr {
+	display: table-row;
+}
+::v-deep ma-th,
+::v-deep ma-td {
+	display: table-cell;
+}
+// #endif
+
+.t-head-table,
+.t-body-table {
+	width: 100%;
+	table-layout: fixed;
+}

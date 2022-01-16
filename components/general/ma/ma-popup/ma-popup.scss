@@ -1,6 +1,7 @@
 $popup-borderRaduis: 16rpx;
 $popup-color-mask: rgba(0, 0, 0, 0.5);
 $popup-color-body: #ffffff;
+$popup-transition-duration: 0.2s;
 
 .ma-popup {}
 
@@ -22,7 +23,7 @@ $popup-color-body: #ffffff;
 
 .p-mask.p-mask--to-enter {
 	opacity: 1;
-	transition: opacity 0.4s ease-out 0s;
+	transition: opacity $popup-transition-duration ease-out 0s;
 }
 
 .p-mask.p-mask--active {
@@ -32,7 +33,7 @@ $popup-color-body: #ffffff;
 
 .p-mask.p-mask--to-leave {
 	opacity: 0;
-	transition: opacity 0.4s ease-in 0s;
+	transition: opacity $popup-transition-duration ease-in 0s;
 }
 
 .p__body {
@@ -94,7 +95,7 @@ $popup-color-body: #ffffff;
 
 .p__body.p__body--center.p__body--to-enter {
 	opacity: 1;
-	transition: opacity 0.4s ease-out 0s;
+	transition: opacity $popup-transition-duration ease-out 0s;
 }
 
 .p__body.p__body--center.p__body--active {
@@ -104,7 +105,7 @@ $popup-color-body: #ffffff;
 
 .p__body.p__body--center.p__body--to-leave {
 	opacity: 0;
-	transition: opacity 0.4s ease-in 0s;
+	transition: opacity $popup-transition-duration ease-in 0s;
 }
 
 .p__body.p__body--top.p__body--enter,
@@ -118,14 +119,14 @@ $popup-color-body: #ffffff;
 .p__body.p__body--right.p__body--to-enter,
 .p__body.p__body--bottom.p__body--to-enter,
 .p__body.p__body--left.p__body--to-enter {
-	transition: transform 0.4s ease-in 0s;
+	transition: transform $popup-transition-duration ease-in 0s;
 }
 
 .p__body.p__body--top.p__body--to-leave,
 .p__body.p__body--right.p__body--to-leave,
 .p__body.p__body--bottom.p__body--to-leave,
 .p__body.p__body--left.p__body--to-leave {
-	transition: transform 0.4s ease-out 0s;
+	transition: transform $popup-transition-duration ease-out 0s;
 }
 
 .p__body.p__body--top.p__body--enter {

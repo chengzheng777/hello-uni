@@ -8,6 +8,7 @@
 	.fi__inner {
 		display: flex;
 		align-items: center;
+		min-height: #{$form-fontSize * 2};
 	}
 
 	.fi__inner__body {

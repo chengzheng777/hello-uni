@@ -1,0 +1,12 @@
+@import "./ma-table.scss";
+
+.ma-td {
+	padding: $table-cell-padding;
+}
+
+// H5，边框样式
+// #ifndef MP-WEIXIN
+.ma-td.t--border {
+	border: 1px solid $table-color-border;
+}
+// #endif

@@ -1,3 +1,8 @@
+$table-color-border: #000000;
+$table-cell-padding: 14rpx;
+$table-header-cell-color: #000000;
+$table-data-cell-color: #333333;
+
 .ma-table {}
 
 // #ifdef MP-WEIXIN
@@ -26,7 +31,31 @@
 // #endif
 
 .t-head-table,
-.t-body-table {
+.t-data-table {
 	width: 100%;
 	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.t-data-table {
+	color: $table-header-cell-color;
+}
+
+.t-head-table {
+	color: $table-data-cell-color;
+}
+
+.ma-table.t--border {
+	.t-head-table,
+	.t-data-table {
+		margin-bottom: -1px;
+	}
+	
+	// 微信小程序，边框样式
+	// #ifdef MP-WEIXIN
+	::v-deep ma-th,
+	::v-deep ma-td {
+		border: 1px solid $table-color-border;
+	}
+	// #endif
 }

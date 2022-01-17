@@ -6,7 +6,11 @@
  * @LastEditTime: 2022-01-16
 -->
 <template>
-	<td class="ma-td">
+	<td
+		class="ma-td"
+		:class="{
+			't--border':cpu_border,
+		}">
 		<slot></slot>
 	</td>
 </template>
@@ -16,20 +20,32 @@
 		name: 'MaTd',
 		components: {},
 		filters: {},
+		inject: {
+			tableBorder: {
+				from: 'tableBorder',
+				default: () => {
+					return function() {
+						return true;
+					}
+				}
+			},
+		},
 		props: {},
 		data() {
 			return {
 
 			};
 		},
-		computed: {},
+		computed: {
+			cpu_border() {
+				return this.tableBorder();
+			},
+		},
 		methods: {},
 		watch: {},
-		onLoad(options) {},
-		onReady() {},
 	}
 </script>
 
 <style lang="scss" scoped>
-	@import "./ma-table.scss";
+	@import "./ma-td.scss";
 </style>

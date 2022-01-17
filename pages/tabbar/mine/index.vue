@@ -26,10 +26,13 @@
 			<view>abcdefg</view>
 		</MaPopup>
 		<button type="default" @tap="handlePopup">弹窗切换</button>
-		<MaTable
-			:columns="tableData.columns"
-			:rows="tableData.rows">
-		</MaTable>
+		<view class="pad-2">
+			<MaTable
+				:columns="tableData.columns"
+				:rows="tableData.rows"
+				stripe>
+			</MaTable>
+		</view>
 	</view>
 </template>
 
@@ -39,6 +42,8 @@
 	import MaFormInput from '@/components/general/ma/ma-form-input/MaFormInput'
 	import MaPopup from '@/components/general/ma/ma-popup/MaPopup'
 	import MaTable from '@/components/general/ma/ma-table/MaTable'
+	import MaTh from '@/components/general/ma/ma-table/MaTh'
+	import MaTd from '@/components/general/ma/ma-table/MaTd'
 
 	export default {
 		components: {
@@ -47,6 +52,8 @@
 			MaFormInput,
 			MaPopup,
 			MaTable,
+			MaTh,
+			MaTd,
 		},
 		filters: {},
 		props: {},
@@ -57,10 +64,12 @@
 					columns: [{
 							prop: 'index',
 							label: '序号',
+							width: '112rpx',
 						},
 						{
 							prop: 'name',
 							label: '姓名',
+							width: '140rpx',
 						},
 						{
 							prop: 'sex',

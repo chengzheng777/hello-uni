@@ -3,16 +3,23 @@
  * @Author: LXG
  * @Date: 2022-01-16
  * @Editors: LXG
- * @LastEditTime: 2022-01-16
+ * @LastEditTime: 2022-01-17
 -->
 <template>
-	<view class="ma-table">
+	<view
+		class="ma-table"
+		:class="{
+			't--border': border,
+		}">
 		<table class="t-head-table">
 			<colgroup>
 				<slot name="colgroup">
 					<col
 						v-for="(col,index) in columns"
-						:key="col.prop">
+						:key="col.prop"
+						:style="{
+							width:col.width,
+						}">
 				</slot>
 			</colgroup>
 			<thead>
@@ -25,12 +32,15 @@
 				</slot>
 			</thead>
 		</table>
-		<table class="t-body-table">
+		<table class="t-data-table">
 			<colgroup>
 				<slot name="colgroup">
 					<col
 						v-for="(col,index) in columns"
-						:key="col.prop">
+						:key="col.prop"
+						:style="{
+							width:col.width,
+						}">
 				</slot>
 			</colgroup>
 			<tbody>
@@ -45,6 +55,7 @@
 						</MaTd>
 					</tr>
 				</slot>
+				<slot name="append"></slot>
 			</tbody>
 		</table>
 		<view class="t-footer">
@@ -54,19 +65,19 @@
 </template>
 
 <script>
-	import MaTr from './MaTr'
 	import MaTh from './MaTh'
 	import MaTd from './MaTd'
 
 	/**
 	 * @property {object[]} columns 列数据
 	 * @property {object[]} rows 行数据
+	 * @property {Boolean} border 是否有边框
+	 * @property {Boolean} stripe 表行是否有斑马纹样式
 	 */
 
 	export default {
 		name: 'MaTable',
 		components: {
-			MaTr,
 			MaTh,
 			MaTd,
 		},
@@ -80,6 +91,14 @@
 				type: Array,
 				default: () => []
 			},
+			border: {
+				type: Boolean,
+				default: true
+			},
+			stripe: {
+				type: Boolean,
+				default: false
+			},
 		},
 		data() {
 			return {
@@ -88,9 +107,12 @@
 		},
 		computed: {},
 		methods: {},
+		provide() {
+			return {
+				tableBorder: () => this.border,
+			};
+		},
 		watch: {},
-		onLoad(options) {},
-		onReady() {},
 	}
 </script>
 

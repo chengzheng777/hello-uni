@@ -77,10 +77,10 @@
 	 * @property {Boolean} showTips 显示底部小贴士
 	 * @property {String} tips 底部小贴士
 	 * @property {function} validateMethod 自定义校验函数(val,cb) -
-	 *     val:值,
-	 *     cb:回调函数,
+	 *     val: 值,
+	 *     cb: 回调函数,
 	 * @event {Function} handleClick 轻触时(e) -
-	 *     e:Event,
+	 *     e: Event,
 	 */
 
 	export default {

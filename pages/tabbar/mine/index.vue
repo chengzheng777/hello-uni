@@ -30,7 +30,18 @@
 			<MaTable
 				:columns="tableData.columns"
 				:rows="tableData.rows"
-				stripe>
+				stripe
+				@rowTap="handleRow"
+				@datacellTap="handleDatacell">
+				<tr 
+					v-for="(row,index) in tableData.rows"
+					:key="index"
+					class="ma-tr">
+					<td class="ma-td">{{row.index}}</td>
+					<td class="ma-td">{{row.name}}</td>
+					<td class="ma-td">{{row.sex}}</td>
+					<td class="ma-td">{{row.beGoodAt}}</td>
+				</tr>
 			</MaTable>
 		</view>
 	</view>
@@ -42,8 +53,6 @@
 	import MaFormInput from '@/components/general/ma/ma-form-input/MaFormInput'
 	import MaPopup from '@/components/general/ma/ma-popup/MaPopup'
 	import MaTable from '@/components/general/ma/ma-table/MaTable'
-	import MaTh from '@/components/general/ma/ma-table/MaTh'
-	import MaTd from '@/components/general/ma/ma-table/MaTd'
 
 	export default {
 		components: {
@@ -52,8 +61,6 @@
 			MaFormInput,
 			MaPopup,
 			MaTable,
-			MaTh,
-			MaTd,
 		},
 		filters: {},
 		props: {},
@@ -64,37 +71,70 @@
 					columns: [{
 							prop: 'index',
 							label: '序号',
-							width: '112rpx',
+							headercellClass: 'col-red',
 						},
 						{
 							prop: 'name',
 							label: '姓名',
-							width: '140rpx',
+							datacellClass: 'col-theme',
+							clickable: true,
 						},
 						{
 							prop: 'sex',
 							label: '性别',
+						},
+						{
+							prop: 'beGoodAt',
+							label: '特长',
 						},
 					],
 					rows: [{
 							index: '1',
 							name: '林晓刚',
 							sex: '男',
+							beGoodAt: '睡觉',
 						},
 						{
 							index: '2',
-							name: '程政',
-							sex: '女',
+							name: '万兴兴',
+							sex: '男',
+							beGoodAt: '直播',
 						},
 						{
 							index: '3',
-							name: '王光涛',
-							sex: '女',
+							name: '刘奔宇',
+							sex: '男',
+							beGoodAt: '宇神',
 						},
 						{
 							index: '4',
-							name: '万兴兴',
+							name: '陈奎全',
 							sex: '男',
+							beGoodAt: '???',
+						},
+						{
+							index: '5',
+							name: '王光涛',
+							sex: '男',
+							beGoodAt: '六边形战士',
+						},
+						{
+							index: '6',
+							name: '程政',
+							sex: '男',
+							beGoodAt: '六边形战士',
+						},
+						{
+							index: '7',
+							name: '甘锦富',
+							sex: '男',
+							beGoodAt: 'English',
+						},
+						{
+							index: '8',
+							name: '涂丽芳',
+							sex: '女',
+							beGoodAt: '???',
 						},
 					],
 				},
@@ -111,6 +151,20 @@
 			},
 			handlePopup() {
 				this.$refs['maPopup'].toggle()
+			},
+			handleRow({
+				row,
+				index
+			}, e) {
+				console.log('handleRow', row, index, e)
+			},
+			handleDatacell({
+				row,
+				column,
+				rIndex,
+				cIndex
+			}, e) {
+				console.log('handleDatacell', row, column, rIndex, cIndex, e)
 			},
 		},
 		watch: {},

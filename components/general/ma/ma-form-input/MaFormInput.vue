@@ -79,11 +79,11 @@
 	 * @property {Boolean} disabled 是否禁用
 	 * @property {Number} maxlength 最大输入长度
 	 * @event {Function} input 值输入时(val) -
-	 *     val:值,
+	 *     val: 值,
 	 * @event {Function} blur input失焦时(e) -
-	 *     e:Event,
+	 *     e: Event,
 	 * @event {Function} confirm input回车确定时(e) -
-	 *     e:Event,
+	 *     e: Event,
 	 */
 
 	export default {

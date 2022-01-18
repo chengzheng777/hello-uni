@@ -1,9 +1,14 @@
-$table-color-border: #000000;
+$table-color-border: rgb(225, 225, 225);
+$table-row-color-stripe: rgb(250, 250, 250);
+$table-color-background: #ffffff;
 $table-cell-padding: 14rpx;
 $table-header-cell-color: #000000;
 $table-data-cell-color: #333333;
 
-.ma-table {}
+.ma-table {
+	position: relative;
+	text-align: center;
+}
 
 // #ifdef MP-WEIXIN
 ._table {
@@ -24,8 +29,12 @@ $table-data-cell-color: #333333;
 ._tr {
 	display: table-row;
 }
-::v-deep ma-th,
-::v-deep ma-td {
+._th {
+	display: table-cell;
+	text-align: center;
+	font-weight: bold;
+}
+._td {
 	display: table-cell;
 }
 // #endif
@@ -35,14 +44,42 @@ $table-data-cell-color: #333333;
 	width: 100%;
 	table-layout: fixed;
 	border-collapse: collapse;
-}
-
-.t-data-table {
-	color: $table-header-cell-color;
+	background-color: $table-color-background;
 }
 
 .t-head-table {
+	color: $table-header-cell-color;
+}
+
+.t-data-table {
 	color: $table-data-cell-color;
+}
+
+.ma-th,
+.ma-td {
+	padding: $table-cell-padding;
+}
+
+.t-data-table.t-data-table--stripe {
+	.ma-tr:nth-child(even) {
+		background-color: $table-row-color-stripe;
+	}
+}
+
+.ma-table.t--scroll {
+	overflow-y: auto;
+	
+	// 微信小程序，加滚动后右侧和底部会因为滚动条而自带1像素的隐形空间，手动收缩
+	// #ifdef MP-WEIXIN
+	padding-right: 1px;
+	padding-bottom: 1px;
+	// #endif
+	
+	.t-head-table--sticky {
+		position: sticky;
+		top: 0;
+		z-index: 999;
+	}
 }
 
 .ma-table.t--border {
@@ -51,11 +88,8 @@ $table-data-cell-color: #333333;
 		margin-bottom: -1px;
 	}
 	
-	// 微信小程序，边框样式
-	// #ifdef MP-WEIXIN
-	::v-deep ma-th,
-	::v-deep ma-td {
+	.ma-th,
+	.ma-td {
 		border: 1px solid $table-color-border;
 	}
-	// #endif
 }

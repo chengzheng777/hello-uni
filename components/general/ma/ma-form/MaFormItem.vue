@@ -202,10 +202,6 @@
 					})
 				})
 			},
-			/**
-			 * @description 设置校验信息
-			 * @param {object} info 校验信息
-			 */
 			setValidation(info = {}) {
 				this.validationInfo.status = info.status ?? true
 				this.validationInfo.msg = info.msg ?? ''

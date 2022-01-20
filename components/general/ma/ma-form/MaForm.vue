@@ -53,11 +53,6 @@
 		},
 		computed: {},
 		methods: {
-			/**
-			 * @description 获取内部的表单项组件实例
-			 * @param {VueComponent[]} childrenList 子组件实例列表
-			 * @returns {VueComponent[]}
-			 */
 			getChildrens(target = [], childrenList = []) {
 				for (let i = 0; i < childrenList.length; i++) {
 					const vc = childrenList[i]

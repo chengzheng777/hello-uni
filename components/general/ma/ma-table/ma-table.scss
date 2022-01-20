@@ -13,6 +13,7 @@ $table-data-cell-color: #333333;
 // #ifdef MP-WEIXIN
 ._table {
 	display: table;
+	box-sizing: border-box;
 }
 ._colgroup {
 	display: table-column-group;
@@ -22,20 +23,25 @@ $table-data-cell-color: #333333;
 }
 ._thead {
 	display: table-header-group;
+	vertical-align: middle;
 }
 ._tbody {
 	display: table-row-group;
+	vertical-align: middle;
 }
 ._tr {
 	display: table-row;
+	vertical-align: inherit;
 }
 ._th {
 	display: table-cell;
 	text-align: center;
+	vertical-align: inherit;
 	font-weight: bold;
 }
 ._td {
 	display: table-cell;
+	vertical-align: inherit;
 }
 // #endif
 
@@ -55,13 +61,13 @@ $table-data-cell-color: #333333;
 	color: $table-data-cell-color;
 }
 
-.ma-th,
-.ma-td {
+::v-deep .ma-th,
+::v-deep .ma-td {
 	padding: $table-cell-padding;
 }
 
 .t-data-table.t-data-table--stripe {
-	.ma-tr:nth-child(even) {
+	::v-deep .ma-tr:nth-child(even) {
 		background-color: $table-row-color-stripe;
 	}
 }
@@ -88,8 +94,8 @@ $table-data-cell-color: #333333;
 		margin-bottom: -1px;
 	}
 	
-	.ma-th,
-	.ma-td {
+	::v-deep .ma-th,
+	::v-deep .ma-td {
 		border: 1px solid $table-color-border;
 	}
 }

@@ -33,15 +33,6 @@
 				stripe
 				@rowTap="handleRow"
 				@datacellTap="handleDatacell">
-				<tr 
-					v-for="(row,index) in tableData.rows"
-					:key="index"
-					class="ma-tr">
-					<td class="ma-td">{{row.index}}</td>
-					<td class="ma-td">{{row.name}}</td>
-					<td class="ma-td">{{row.sex}}</td>
-					<td class="ma-td">{{row.beGoodAt}}</td>
-				</tr>
 			</MaTable>
 		</view>
 	</view>

@@ -16,5 +16,6 @@
 	/*每个页面公共css */
 	@import "./static/iconfont/mam/iconfont.css";
 	@import "./static/iconfont/mas/iconfont.css";
+	@import "./components/general/ma/ma.scss";
 	@import "./common/css/global.scss";
 </style>

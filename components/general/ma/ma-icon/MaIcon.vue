@@ -36,10 +36,6 @@
 			};
 		},
 		computed: {
-			/**
-			 * @description 字体图标族名
-			 * @returns {string}
-			 */
 			cpu_familyName({
 				name
 			}) {

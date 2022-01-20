@@ -32,13 +32,15 @@
 			</colgroup>
 			<thead>
 				<slot name="thead">
-					<th
-						v-for="(headercell,index) in columns"
-						:key="headercell.prop"
-						class="ma-th"
-						:class="headercell.headercellClass">
-						{{headercell.label}}
-					</th>
+					<tr>
+						<th
+							v-for="(headercell,index) in columns"
+							:key="headercell.prop"
+							class="ma-th"
+							:class="headercell.headercellClass">
+							{{headercell.label}}
+						</th>
+					</tr>
 				</slot>
 			</thead>
 		</table>
@@ -182,6 +184,6 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@import "./ma-table.scss";
 </style>

@@ -8,7 +8,7 @@
 			"style": {}
 		},
 		{
-			"path": "pages/test/test",
+			"path": "pages/control/index",
 			"style": {}
 		},
 		{
@@ -22,7 +22,9 @@
 	],
 	"tabBar": {
 		"selectedColor": "#3699ff",
+		// #ifndef MP-WEIXIN
 		"fontSize": "28rpx", // 仅H5、App
+		// #endif
 		"list": [{
 				"pagePath": "pages/tabbar/home/index",
 				"text": "首页"
@@ -35,7 +37,7 @@
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black", // 导航栏标题颜色及状态栏前景颜色[black|white]
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "ma-uni",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}

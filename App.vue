@@ -1,13 +1,18 @@
 <script>
 	export default {
-		onLaunch: function() {
-			console.log('App Launch')
+		onLaunch: function(options) {
+			console.log('App Launch', options)
+			this.$maRouter.pushHandler({
+				path: '/' + options.path,
+			}, {
+				path: '/',
+			}, () => {})
 		},
-		onShow: function() {
-			console.log('App Show')
+		onShow: function(options) {
+			// console.log('App Show', options)
 		},
 		onHide: function() {
-			console.log('App Hide')
+			// console.log('App Hide')
 		}
 	}
 </script>

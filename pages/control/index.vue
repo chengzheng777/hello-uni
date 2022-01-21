@@ -1,19 +1,19 @@
 <!--
- * @Description: 调试页面
+ * @Description: 控制室
  * @Author: LXG
  * @Date: 2021-12-16
  * @Editors: LXG
- * @LastEditTime: 2021-12-16
+ * @LastEditTime: 2022-01-21
 -->
 <template>
 	<view>
-		<view>text</view>
+		<view>控制室</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		name: 'TextCustom',
+		name: 'Control',
 		components: {},
 		filters: {},
 		props: {},

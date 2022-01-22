@@ -1,9 +1,9 @@
-/**
+/*
  * @Description: MaHttper
  * @Author: LXG
  * @Date: 2022-01-04
- * @LastEditors: LXG
- * @LastEditTime: 2022-01-05
+ * @Editors: LXG
+ * @LastEditTime: 2022-01-22
  */
 
 class MaHttper {
@@ -39,9 +39,9 @@ class MaHttper {
 	 * @param {string} url 请求地址
 	 * @param {object} config 请求配置
 	 * @param {object} customConfig 自定义配置
-	 * @param {boolean} [true] customConfig.unique 是否组内唯一请求
-	 * @param {string} [url] customConfig.groupId 请求组ID
-	 * @param {string} [Date.now().toString()] customConfig.requestId 请求ID
+	 * @param {boolean} [customConfig.unique = true] customConfig.unique 是否组内唯一请求
+	 * @param {string} [customConfig.groupId = url] customConfig.groupId 请求组ID
+	 * @param {string} [customConfig.requestId = Date.now().toString()] customConfig.requestId 请求ID
 	 * @returns {Promise} Promise
 	 */
 	commonRequest = function(method, url, config = {}, customConfig = {}) {

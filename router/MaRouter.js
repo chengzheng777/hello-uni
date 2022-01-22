@@ -14,6 +14,29 @@ class MaRouter {
 	#routes = [];
 
 	/**
+	 * @property {Function} getParamsFromOption 获取跳转选项中的参数
+	 * @private
+	 * @param {string | object} option = 跳转选项
+	 */
+	#getParamsFromOption = function(option) {
+		if (!option) return {};
+
+		let params = {}
+		if (typeof option === 'string') {
+			params = this.getParamsFromUrl(option)
+		}
+		if (Object.prototype.toString.call(option).includes('Object')) {
+			option.path && (params = this.getParamsFromUrl(option.path));
+			if (option.query) {
+				Object.keys(option.query).forEach(key => {
+					params[key] = option.query[key] ?? ''
+				})
+			}
+		}
+		return params;
+	}
+
+	/**
 	 * @property {Function} getRoute 获取匹配路由
 	 * @param {string | object} option 选项
 	 * @returns {object}
@@ -21,27 +44,81 @@ class MaRouter {
 	getRoute = function(option) {
 		if (!option) return;
 
+		let route = undefined
 		if (typeof option === 'string') {
-			return this.#routes.find(route => route.path === option.split('?')[0]);
+			route = this.#routes.find(route => route.path === option.split('?')[0]);
 		}
 		if (Object.prototype.toString.call(option).includes('Object')) {
-			return this.#routes.find(route => {
-				return route.path === option.path.split('?')[0] || route.name === option.name;
+			route = this.#routes.find(route => {
+				return route.path === (option.path || '').split('?')[0] || route.name === option.name;
 			})
 		}
-		return;
+		return route;
 	}
 
 	/**
 	 * @property {Function} push 导航前进新页面
 	 * @param {string | object} option 跳转选项
+	 * @param {string} option.name 路由名
+	 * @param {string} option.path 路由地址
+	 * @param {object} option.query 跳转参数
+	 * @param {object} option.events 页面通讯事件
 	 */
 	push = function(option) {
-		if (!option) {
-			console.warn(`MaRouter.push: 'option' isn't find.`)
+		const to = this.getRoute(option) || this.getRoute({
+			name: '404',
+		})
+		if (!to) {
+			console.warn(`MaRouter.push: can't match route in routes.`)
 			return;
 		}
 
+		const pages = getCurrentPages()
+		const from = this.getRoute('/' + pages[pages.length - 1]?.route)
+		const _this = this
+
+		let gen = (function*(gOption) {
+			let new_option = yield gOption
+			let new_to = _this.getRoute(new_option) || _this.getRoute({
+				name: '404',
+			})
+			if (!new_to) {
+				console.warn(`MaRouter.push: can't match route in routes.`)
+				return;
+			}
+
+			let url = new_to.path
+			let urlParams = _this.#getParamsFromOption(new_option)
+			urlParams = Object.entries(urlParams).map(cv => cv[0] + '=' + cv[1]).join('&')
+			urlParams && (url += `?${urlParams}`);
+			let events = new_option.events || {}
+
+			if (new_to?.meta.isTab) {
+				uni.switchTab({
+					url,
+				})
+			} else {
+				uni.navigateTo({
+					url,
+					events,
+				})
+			}
+		})(option)
+		gen.next()
+
+		this.pushHandler(to, from, (newOption = option) => {
+			gen.next(newOption)
+		})
+	}
+
+	/**
+	 * @property {Function} replace 关闭当前页面并导航前进新页面
+	 * @param {string | object} option 跳转选项
+	 * @param {string} option.name 路由名
+	 * @param {string} option.path 路由地址
+	 * @param {object} option.query 跳转参数
+	 */
+	replace = function(option) {
 		const to = this.getRoute(option)
 		if (!to) {
 			console.warn(`MaRouter.push: can't match route in routes.`)
@@ -61,34 +138,55 @@ class MaRouter {
 			}
 
 			let url = new_to.path
-			let urlParams = {}
-			let events = {}
-
-			if (typeof new_option === 'string') {
-				urlParams = _this.getParamsFromUrl(new_option)
-			}
-			if (Object.prototype.toString.call(new_option).includes('Object')) {
-				new_option.path && (urlParams = _this.getParamsFromUrl(new_option.path));
-				if (new_option.query) {
-					Object.keys(new_option.query).forEach(key => {
-						urlParams[key] = new_option.query[key] ?? ''
-					})
-				}
-				new_option.events && (events = new_option.events);
-			}
+			let urlParams = _this.#getParamsFromOption(new_option)
 			urlParams = Object.entries(urlParams).map(cv => cv[0] + '=' + cv[1]).join('&')
 			urlParams && (url += `?${urlParams}`);
 
-			if (new_to?.meta.isTab) {
-				uni.switchTab({
-					url,
-				})
-			} else {
-				uni.navigateTo({
-					url,
-					events,
-				})
+			uni.redirectTo({
+				url,
+			})
+		})(option)
+		gen.next()
+
+		this.pushHandler(to, from, (newOption = option) => {
+			gen.next(newOption)
+		})
+	}
+
+	/**
+	 * @property {Function} relaunch 关闭所有页面并导航前进新页面
+	 * @param {string | object} option 跳转选项
+	 * @param {string} option.name 路由名
+	 * @param {string} option.path 路由地址
+	 * @param {object} option.query 跳转参数
+	 */
+	relaunch = function(option) {
+		const to = this.getRoute(option)
+		if (!to) {
+			console.warn(`MaRouter.push: can't match route in routes.`)
+			return;
+		}
+
+		const pages = getCurrentPages()
+		const from = this.getRoute('/' + pages[pages.length - 1]?.route)
+		const _this = this
+
+		let gen = (function*(gOption) {
+			let new_option = yield gOption
+			let new_to = _this.getRoute(new_option)
+			if (!new_to) {
+				console.warn(`MaRouter.push: can't match route in routes.`)
+				return;
 			}
+
+			let url = new_to.path
+			let urlParams = _this.#getParamsFromOption(new_option)
+			urlParams = Object.entries(urlParams).map(cv => cv[0] + '=' + cv[1]).join('&')
+			urlParams && (url += `?${urlParams}`);
+
+			uni.reLaunch({
+				url,
+			})
 		})(option)
 		gen.next()
 

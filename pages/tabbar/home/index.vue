@@ -8,8 +8,10 @@
 <template>
 	<view>
 		<view>home</view>
-		<button type="default" @tap="pushStr">maRouter push(str)</button>
-		<button type="default" @tap="pushObj">maRouter push(obj)</button>
+		<button type="default" @tap="pushObj">maRouter.push(obj)</button>
+		<button type="default" @tap="pushTab">maRouter.push(tab)</button>
+		<button type="default" @tap="replace">maRouter.replace</button>
+		<button type="default" @tap="relaunch">maRouter.relaunch</button>
 	</view>
 </template>
 
@@ -25,16 +27,28 @@
 		},
 		computed: {},
 		methods: {
-			pushStr() {
-				this.$maRouter.push('/pages/control/index?a=1&b=&c')
-			},
 			pushObj() {
 				this.$maRouter.push({
-					name: 'control',
-					path: '/pages/control/index?a=1&param=1',
+					path: '/pages/control/index/abc?a=1&b=1',
 					query: {
-						param: '2',
+						b: '2',
+						c: '3',
 					},
+				})
+			},
+			pushTab() {
+				this.$maRouter.push({
+					name: 'mine',
+				})
+			},
+			replace() {
+				this.$maRouter.replace({
+					name: 'control',
+				})
+			},
+			relaunch() {
+				this.$maRouter.relaunch({
+					name: 'control',
 				})
 			},
 		},

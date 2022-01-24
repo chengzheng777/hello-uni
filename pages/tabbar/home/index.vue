@@ -29,7 +29,7 @@
 		methods: {
 			pushObj() {
 				this.$maRouter.push({
-					path: '/pages/control/index/abc?a=1&b=1',
+					path: '/pages/control/index?a=1&b=1',
 					query: {
 						b: '2',
 						c: '3',

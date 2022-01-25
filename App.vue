@@ -2,7 +2,7 @@
 	export default {
 		onLaunch: function(options) {
 			console.log('App Launch', options)
-			this.$maRouter.pushHandler({
+			this.$maRouter.guardHandler({
 				path: '/' + options.path,
 			}, {
 				path: '/',

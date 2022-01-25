@@ -9,13 +9,14 @@
 import MaRouter from './MaRouter.js'
 import baseRoutes from './routes/baseRoutes.js'
 import customRoutes from './routes/customRoutes.js'
+import tabRoutes from './routes/tabRoutes.js'
 
 const router = new MaRouter({
-	routes: [...baseRoutes, ...customRoutes],
+	routes: [...baseRoutes, ...customRoutes, ...tabRoutes],
 })
 
-// router.setPushHandler((to, from, next) => {
-// 	console.log(to, from)
+// router.setGuard((to, from, next) => {
+// 	// console.log(to, from)
 // 	next();
 // })
 

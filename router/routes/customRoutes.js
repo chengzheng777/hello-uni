@@ -1,19 +1,11 @@
-let customRoutes = [{
-		"name": "home",
-		"path": "/pages/tabbar/home/index",
-		"meta": {
-			"isTab": true, // 是否为tabbar中的页面
-			"title": "首页",
-		}
-	},
-	{
-		"name": "mine",
-		"path": "/pages/tabbar/mine/index",
-		"meta": {
-			"isTab": true, // 是否为tabbar中的页面
-			"title": "我的",
-		}
-	}
-]
+/**
+ * @Description: 路由表 - 自定义路由
+ * @Author: LXG
+ * @Date: 2022-01-25
+ * @LastEditors: LXG
+ * @LastEditTime: 2022-01-25
+ */
+
+let customRoutes = []
 
 export default customRoutes

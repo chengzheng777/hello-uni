@@ -16,17 +16,17 @@ class MaRouter {
 	/**
 	 * @property {Function} getParamsFromOption 获取跳转选项中的参数
 	 * @private
-	 * @param {string | object} option = 跳转选项
+	 * @param {string | object} option 跳转选项
 	 */
 	#getParamsFromOption = function(option) {
 		if (!option) return {};
 
 		let params = {}
 		if (typeof option === 'string') {
-			params = this.getParamsFromUrl(option)
+			params = this.#getParamsFromUrl(option)
 		}
 		if (Object.prototype.toString.call(option).includes('Object')) {
-			option.path && (params = this.getParamsFromUrl(option.path));
+			option.path && (params = this.#getParamsFromUrl(option.path));
 			if (option.query) {
 				Object.keys(option.query).forEach(key => {
 					params[key] = option.query[key] ?? ''
@@ -37,27 +37,26 @@ class MaRouter {
 	}
 
 	/**
-	 * @property {Function} getRoute 获取匹配路由
-	 * @param {string | object} option 选项
-	 * @returns {object}
+	 * @property {Function} getParamsFromUrl 获取页面地址中的参数
+	 * @private
+	 * @param {string} url 页面地址
 	 */
-	getRoute = function(option) {
-		if (!option) return;
+	#getParamsFromUrl = function(url) {
+		if (!url) return {};
 
-		let route = undefined
-		if (typeof option === 'string') {
-			route = this.#routes.find(route => route.path === option.split('?')[0]);
-		}
-		if (Object.prototype.toString.call(option).includes('Object')) {
-			route = this.#routes.find(route => {
-				return route.path === (option.path || '').split('?')[0] || route.name === option.name;
+		let params = {}
+		let paramStr = url.split('?')[1]
+		if (paramStr) {
+			paramStr.split('&').filter(cv => cv).forEach(cv => {
+				let [k, v] = cv.split('=')
+				k && (params[k] = v ?? '');
 			})
 		}
-		return route;
+		return params;
 	}
 
 	/**
-	 * @property {Function} push 导航前进新页面
+	 * @property {Function} push 跳转非tab新页面
 	 * @param {string | object} option 跳转选项
 	 * @param {string} option.name 路由名
 	 * @param {string} option.path 路由地址
@@ -93,26 +92,20 @@ class MaRouter {
 			urlParams && (url += `?${urlParams}`);
 			let events = new_option.events || {}
 
-			if (new_to?.meta.isTab) {
-				uni.switchTab({
-					url,
-				})
-			} else {
-				uni.navigateTo({
-					url,
-					events,
-				})
-			}
+			uni.navigateTo({
+				url,
+				events,
+			})
 		})(option)
 		gen.next()
 
-		this.pushHandler(to, from, (newOption = option) => {
+		this.guardHandler(to, from, (newOption = option) => {
 			gen.next(newOption)
 		})
 	}
 
 	/**
-	 * @property {Function} relaunch 关闭所有页面并导航前进新页面
+	 * @property {Function} relaunch 关闭所有页面并跳转新页面
 	 * @param {string | object} option 跳转选项
 	 * @param {string} option.name 路由名
 	 * @param {string} option.path 路由地址
@@ -148,13 +141,13 @@ class MaRouter {
 		})(option)
 		gen.next()
 
-		this.pushHandler(to, from, (newOption = option) => {
+		this.guardHandler(to, from, (newOption = option) => {
 			gen.next(newOption)
 		})
 	}
 
 	/**
-	 * @property {Function} replace 关闭当前页面并导航前进新页面
+	 * @property {Function} replace 关闭当前页面并跳转非tab新页面
 	 * @param {string | object} option 跳转选项
 	 * @param {string} option.name 路由名
 	 * @param {string} option.path 路由地址
@@ -190,7 +183,45 @@ class MaRouter {
 		})(option)
 		gen.next()
 
-		this.pushHandler(to, from, (newOption = option) => {
+		this.guardHandler(to, from, (newOption = option) => {
+			gen.next(newOption)
+		})
+	}
+
+	/**
+	 * @property {Function} switchTab 关闭所有非tab页面并跳转tab页面
+	 * @param {string | object} option 跳转选项
+	 * @param {string} option.name 路由名
+	 * @param {string} option.path 页面地址
+	 */
+	switchTab = function(option) {
+		const to = this.getRoute(option)
+		if (!to) {
+			console.warn(`MaRouter.push: can't match route in routes.`)
+			return;
+		}
+
+		const pages = getCurrentPages()
+		const from = this.getRoute('/' + pages[pages.length - 1]?.route)
+		const _this = this
+
+		let gen = (function*(gOption) {
+			let new_option = yield gOption
+			let new_to = _this.getRoute(new_option)
+			if (!new_to) {
+				console.warn(`MaRouter.push: can't match route in routes.`)
+				return;
+			}
+
+			let url = new_to.path
+
+			uni.switchTab({
+				url,
+			})
+		})(option)
+		gen.next()
+
+		this.guardHandler(to, from, (newOption = option) => {
 			gen.next(newOption)
 		})
 	}
@@ -212,58 +243,81 @@ class MaRouter {
 	}
 
 	/**
-	 * @description 获取url中的参数
-	 * @param {string} url URL
+	 * @description 获取匹配的页面路由
+	 * @param {string | object} option 选项
 	 * @returns {object}
 	 */
-	getParamsFromUrl(url) {
-		if (!url) return {};
+	getRoute(option) {
+		if (!option) return;
 
-		let params = {}
-		let paramStr = url.split('?')[1]
-		if (paramStr) {
-			paramStr.split('&').filter(cv => cv).forEach(cv => {
-				let [k, v] = cv.split('=')
-				k && (params[k] = v ?? '');
+		let route = undefined
+		if (typeof option === 'string') {
+			route = this.#routes.find(route => route.path === option.split('?')[0]);
+		}
+		if (Object.prototype.toString.call(option).includes('Object')) {
+			route = this.#routes.find(route => {
+				return route.name === option.name || route.path === (option.path || '').split('?')[0];
 			})
 		}
-		return params;
+		return route;
 	}
 
 	/**
-	 * @description 前进守卫
+	 * @description 获取所有页面路由
+	 * @returns {object[]}
+	 */
+	getRoutes() {
+		return this.#routes;
+	}
+
+	/**
+	 * @description 全局路由守卫
 	 * @param {object} to 目标路由
 	 * @param {object} from 来源路由
-	 * @param {Function} next 前进函数
+	 * @param {Function} next 通行回调
 	 */
-	pushHandler(to, from, next) {
+	guardHandler(to, from, next) {
 		next();
 	};
 
 	/**
-	 * @description 设置前进守卫
-	 * @param {Function} handler 新的前进守卫函数
+	 * @description 设置全局路由守卫
+	 * @param {Function} handler 执行函数
 	 */
-	setPushHandler(handler) {
-		this.pushHandler = handler
+	setGuard(handler) {
+		if (!handler || typeof handler !== 'function') {
+			console.warn(`MaRouter.setGuard: invalid handler.`)
+			return;
+		}
+
+		this.guardHandler = handler
 	}
 
 	/**
 	 * @description 设置页面路由
-	 * @param {object} route 页面路由
+	 * @param {object} newRoute 新页面路由
+	 * @param {string} newRoute.name 路由名
+	 * @param {string} newRoute.path 页面地址
+	 * @returns {boolean}
 	 */
-	setRoute(route) {
-		if (!route || !route.name || !route.path) {
+	setRoute(newRoute) {
+		if (!newRoute || !newRoute.name || !newRoute.path) {
 			console.warn(`MaRouter.setRoute: invalid route.`)
-			return;
+			return false;
+		}
+		let nameIndex = this.#routes.findIndex(route => route.name === newRoute.name)
+		let pathIndex = this.#routes.findIndex(route => route.path === newRoute.path)
+		if (-1 < nameIndex && -1 < pathIndex && nameIndex !== pathIndex) {
+			console.warn(`MaRouter.setRoute: invalid route.`)
+			return false;
 		}
 
-		let index = this.#routes.findIndex(cv => cv.name === route.name)
-		if (-1 < index) {
-			this.#routes[index] = route
-			return;
+		if (nameIndex === -1 && pathIndex === -1) {
+			this.#routes.push(newRoute)
+			return true;
 		}
-		this.#routes.push(route)
+		this.#routes[Math.max(nameIndex, pathIndex)] = newRoute
+		return true;
 	}
 }
 

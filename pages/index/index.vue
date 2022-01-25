@@ -30,8 +30,8 @@
 		computed: {},
 		methods: {
 			goHome() {
-				uni.switchTab({
-					url: '/pages/tabbar/home/index',
+				this.$maRouter.switchTab({
+					name: 'home',
 				})
 			},
 		},

@@ -22,8 +22,7 @@
 			};
 		},
 		computed: {},
-		methods: {
-		},
+		methods: {},
 		watch: {},
 		onLoad(options) {},
 		onReady() {},

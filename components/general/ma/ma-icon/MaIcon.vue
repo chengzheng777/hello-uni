@@ -3,7 +3,7 @@
  * @Author: LXG
  * @Date: 2021-12-14
  * @Editors: LXG
- * @LastEditTime: 2021-12-14
+ * @LastEditTime: 2022-01-26
 -->
 <template>
 	<i
@@ -17,7 +17,7 @@
 
 <script>
 	/**
-	 * @property {String} name 类名(族名-图标名)
+	 * @property {String} name 图标名
 	 */
 
 	export default {

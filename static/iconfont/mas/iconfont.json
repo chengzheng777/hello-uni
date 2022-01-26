@@ -6,6 +6,13 @@
   "description": "ma通用字体图标集（单色）",
   "glyphs": [
     {
+      "icon_id": "26620328",
+      "name": "badge-f",
+      "font_class": "badge-f",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
       "icon_id": "29949",
       "name": "time_fill",
       "font_class": "time-f",

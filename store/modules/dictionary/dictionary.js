@@ -7,6 +7,7 @@
  */
 
 import Vue from 'vue'
+import maHttper from '@/httper/index.js'
 import static_dict from './static_dict.json'
 
 const dictionary = {
@@ -14,7 +15,7 @@ const dictionary = {
 	state: () => ({}),
 	getters: {
 		/**
-		 * @description 获取数据标签
+		 * @description 获取数据项标签
 		 * @param {string} type 字典类型
 		 * @param {*} value 数据值
 		 * @returns {string}
@@ -47,9 +48,9 @@ const dictionary = {
 	},
 	mutations: {
 		/**
-		 * @description 设置字典
-		 * @param {string} type 字典类型
-		 * @param {object[]} data 数据集合
+		 * @description 设置数据集合
+		 * @param {string} payload.type 字典类型
+		 * @param {object[]} payload.data 数据集合
 		 */
 		'SET_DICT'(state, payload) {
 			if (!payload.type) return;
@@ -61,7 +62,7 @@ const dictionary = {
 		/**
 		 * @description: 加载数据集合
 		 * @param {object} context 上下文对象
-		 * @param {string[]} types 字典类型
+		 * @param {string[]} payload.types 字典类型
 		 * @return {Promise}
 		 */
 		loadDict(context, payload) {

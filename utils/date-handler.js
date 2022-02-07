@@ -3,7 +3,7 @@
  * @Author: LXG
  * @Date: 2022-01-26
  * @Editors: LXG
- * @LastEditTime: 2022-01-27
+ * @LastEditTime: 2022-02-07
  */
 
 /**
@@ -21,8 +21,11 @@
  *     '%HH%' => 时(24时间制，补0)    '%H%' => 时(24时间制)
  *     '%mm%' => 分(补0)    '%m%' => 分
  *     '%ss%' => 秒(补0)    '%s%' => 秒
+ *     '%WD%' => 周几(中文)    '%wd%' => 周几
+ *     '%AP%' => 时段(中文)    '%ap%' => 时段(英文)
+ *     '%hh%' => 时(12时间制，补0)    '%h%' => 时(12时间制)
  * @param {object} option 选项
- * @return {Date|string}
+ * @returns {Date|string} 格式化后的值
  */
 function format(value, formatter = 'Date', option = {}) {
     if (!value) {
@@ -40,28 +43,26 @@ function format(value, formatter = 'Date', option = {}) {
         }
     }
 
-    let temp = new Date(value)
-    if (isNaN(temp.getTime())) {
+    let newDate = new Date(value)
+    if (isNaN(newDate.getTime())) {
         console.warn(`format: invalid date.`)
         return;
     }
 
-    if (formatter === 'Date') return temp;
+    if (formatter === 'Date') return newDate;
 
     let opts = {}
-    opts.YYYY = temp.getFullYear()
-    opts.M = temp.getMonth() + 1
+    opts.YYYY = newDate.getFullYear()
+    opts.M = newDate.getMonth() + 1
     opts.MM = opts.M.toString().padStart(2, '0')
-    opts.D = temp.getDate()
+    opts.D = newDate.getDate()
     opts.DD = opts.D.toString().padStart(2, '0')
-    opts.H = temp.getHours()
+    opts.H = newDate.getHours()
     opts.HH = opts.H.toString().padStart(2, '0')
-    opts.m = temp.getMinutes()
+    opts.m = newDate.getMinutes()
     opts.mm = opts.m.toString().padStart(2, '0')
-    opts.s = temp.getSeconds()
+    opts.s = newDate.getSeconds()
     opts.ss = opts.s.toString().padStart(2, '0')
-
-
 
     if (formatter === 'date') {
         return `${opts.YYYY}-${opts.MM}-${opts.DD}`;
@@ -77,17 +78,15 @@ function format(value, formatter = 'Date', option = {}) {
         hour12: true,
         weekday: 'narrow',
         hour: 'numeric',
-    }).format(temp)
-    let matchRes = intlDtff.match(/^(.)\s(.{2})(\d{1,2}).$/)
-    opts.W = matchRes[1]
-    opts.w = temp.getDay() || 7
+    }).format(newDate)
+    let matchRes = intlDtff.match(/^(.+)\s(\D+(?=\d))(\d+).+$/)
+    opts.WD = matchRes[1]
+    opts.wd = newDate.getDay() || 7
     opts.AP = matchRes[2]
     opts.AP === '上午' && (opts.ap = 'am');
     opts.AP === '下午' && (opts.ap = 'pm');
     opts.h = Number(matchRes[3])
     opts.hh = opts.h.toString().padStart(2, '0')
-
-    console.log('opts', opts, intlDtff)
 
     if (typeof formatter === 'string') {
         for (const [k, v] of Object.entries(opts)) {
@@ -98,10 +97,40 @@ function format(value, formatter = 'Date', option = {}) {
     }
 
     if (typeof formatter === 'function') {
-        return formatter(opts);
+        return formatter(newDate, opts);
     }
+}
+
+/**
+ * @description: 获取近期某一刻的日期
+ * @param {Date|string|number} [current = new Date()] current 当天
+ * @param {object} option 选项
+ * @param {number|string} option.year N年前后
+ * @param {number|string} option.month N个月前后
+ * @param {number|string} option.day N天前后
+ * @param {number|string} option.hour N小时前后
+ * @param {number|string} option.minute N分钟前后
+ * @param {number|string} option.second N秒前后
+ * @returns {Date} 近期的日期
+ */
+function getRecent(current = new Date(), option = {}) {
+    let newDate = format(current)
+    if (!newDate) return;
+
+    newDate.setFullYear(
+        newDate.getFullYear() + (parseInt(option.year) || 0),
+        newDate.getMonth() + (parseInt(option.month) || 0),
+        newDate.getDate() + (parseInt(option.day) || 0)
+    )
+    newDate.setHours(
+        newDate.getHours() + (parseInt(option.hour) || 0),
+        newDate.getMinutes() + (parseInt(option.minute) || 0),
+        newDate.getSeconds() + (parseInt(option.second) || 0)
+    )
+    return newDate;
 }
 
 export {
     format,
+    getRecent,
 }

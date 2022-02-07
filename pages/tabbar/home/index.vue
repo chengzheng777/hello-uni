@@ -3,7 +3,7 @@
  * @Author: LXG
  * @Date: 2022-01-10
  * @Editors: LXG
- * @LastEditTime: 2022-01-27
+ * @LastEditTime: 2022-02-07
 -->
 <template>
 	<view>
@@ -12,10 +12,6 @@
 </template>
 
 <script>
-	import {
-		format
-	} from '@/utils/date-handler.js'
-
 	export default {
 		components: {},
 		filters: {},
@@ -30,16 +26,6 @@
 		watch: {},
 		onLoad(options) {},
 		onReady() {
-			console.log(format())
-			console.log(format(new Date()))
-			console.log(format('2022-01-26', 'datetime'))
-			console.log(format('2022-01-26 20:07:0', 'date'))
-			console.log(format('2022-01-26T20:07:39.639+0800', 'time'))
-			console.log(format(1643198859000, 'hello, %MM%/%DD%/%YYYY%'))
-			console.log(format('2022/1/26', function(opts) {
-				return opts.YYYY;
-			}))
-			console.log(format('abc'))
 		},
 	}
 </script>

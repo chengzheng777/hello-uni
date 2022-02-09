@@ -12,6 +12,10 @@
 </template>
 
 <script>
+	import {
+		encrypt
+	} from '@/utils/crypto-js/aes-handler.js'
+
 	export default {
 		components: {},
 		filters: {},
@@ -26,6 +30,7 @@
 		watch: {},
 		onLoad(options) {},
 		onReady() {
+			encrypt('我是一只猪', 'tykycyzj20210601')
 		},
 	}
 </script>

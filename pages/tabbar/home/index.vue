@@ -3,7 +3,7 @@
  * @Author: LXG
  * @Date: 2022-01-10
  * @Editors: LXG
- * @LastEditTime: 2022-02-07
+ * @LastEditTime: 2022-02-11
 -->
 <template>
 	<view>
@@ -12,10 +12,6 @@
 </template>
 
 <script>
-	import {
-		encrypt
-	} from '@/utils/crypto-js/aes-handler.js'
-
 	export default {
 		components: {},
 		filters: {},
@@ -30,7 +26,6 @@
 		watch: {},
 		onLoad(options) {},
 		onReady() {
-			encrypt('我是一只猪', 'tykycyzj20210601')
 		},
 	}
 </script>

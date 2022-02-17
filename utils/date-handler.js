@@ -3,8 +3,19 @@
  * @Author: LXG
  * @Date: 2022-01-26
  * @Editors: LXG
- * @LastEditTime: 2022-02-07
+ * @LastEditTime: 2022-02-17
  */
+
+const WEEKDAY_MAP = new Map([
+    [0, '日'],
+    [1, '一'],
+    [2, '二'],
+    [3, '三'],
+    [4, '四'],
+    [5, '五'],
+    [6, '六'],
+    [7, '日']
+])
 
 /**
  * @description: 格式化
@@ -35,10 +46,10 @@ function format(value, formatter = 'Date', option = {}) {
 
     // 兼容性处理
     if (typeof value === 'string') {
-        if (/^\d{1,4}(-\d{1,4}){1,2}($|\s\d{1,2}:\d{1,2}(:\d{1,2})?$)/) {
+        if (/^\d{1,4}(-\d{1,4}){1,2}($|\s\d{1,2}:\d{1,2}(:\d{1,2})?$)/.test(value)) {
             value = value.replace(/-/gm, '/')
         }
-        if (/^[\d\-]+T[\d:]+.\d+\+0800$/) {
+        if (/^[\d\-]+T[\d:]+.\d+\+0800$/.test(value)) {
             value = value.replace(/-/gm, '/').replace(/T/, ' ').split('.')[0]
         }
     }
@@ -74,19 +85,41 @@ function format(value, formatter = 'Date', option = {}) {
         return `${opts.HH}:${opts.mm}:${opts.ss}`;
     }
 
-    let intlDtff = new Intl.DateTimeFormat(undefined, {
-        hour12: true,
-        weekday: 'narrow',
-        hour: 'numeric',
-    }).format(newDate)
-    let matchRes = intlDtff.match(/^(.+)\s(\D+(?=\d))(\d+).+$/)
-    opts.WD = matchRes[1]
+    opts.WD = undefined
     opts.wd = newDate.getDay() || 7
-    opts.AP = matchRes[2]
-    opts.AP === '上午' && (opts.ap = 'am');
-    opts.AP === '下午' && (opts.ap = 'pm');
-    opts.h = Number(matchRes[3])
-    opts.hh = opts.h.toString().padStart(2, '0')
+    opts.AP = undefined
+    opts.ap = undefined
+    opts.h = undefined
+    opts.hh = undefined
+
+    try {
+        let intlDtff = new Intl.DateTimeFormat('zh-CN', {
+            hour12: true,
+            weekday: 'narrow',
+            hour: 'numeric',
+        }).format(newDate)
+        let matchRes = intlDtff.match(/^(.+)\s(\D+(?=\d))(\d+).+$/)
+        if (matchRes) {
+            opts.WD = matchRes[1]
+            opts.AP = matchRes[2]
+            opts.AP === '上午' && (opts.ap = 'am');
+            opts.AP === '下午' && (opts.ap = 'pm');
+            opts.h = Number(matchRes[3])
+            opts.hh = opts.h.toString().padStart(2, '0')
+        }
+    } catch (error) {
+        opts.WD = WEEKDAY_MAP.get(opts.wd)
+        opts.AP = opts.H <= 12 ? '上午' : '下午'
+        if (opts.H <= 12) {
+            opts.AP = '上午'
+            opts.ap = 'am'
+        } else {
+            opts.AP = '下午'
+            opts.ap = 'pm'
+        }
+        opts.h = opts.H % 12
+        opts.hh = opts.h.toString().padStart(2, '0')
+    }
 
     if (typeof formatter === 'string') {
         for (const [k, v] of Object.entries(opts)) {

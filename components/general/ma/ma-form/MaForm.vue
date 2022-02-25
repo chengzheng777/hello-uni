@@ -22,11 +22,6 @@
 	 * @property {Boolean} separator 子元素表单项之间是否有分隔线
 	 */
 
-	const FORM_CHILDRENS = [
-		'MaFormItem',
-		'MaFormInput',
-	]
-
 	export default {
 		name: 'MaForm',
 		components: {},
@@ -56,7 +51,7 @@
 			getChildrens(target = [], childrenList = []) {
 				for (let i = 0; i < childrenList.length; i++) {
 					const vc = childrenList[i]
-					if (FORM_CHILDRENS.includes(vc.$options.name)) {
+					if (vc.$options.name.match(/^MaForm.+$/)) {
 						target.push(vc)
 						continue;
 					}
